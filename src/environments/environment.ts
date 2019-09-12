@@ -10,7 +10,8 @@ export const environment = {
     databaseURL: 'https://tomate-sysembe-rpi3.firebaseio.com',
     projectId: 'tomate-sysembe-rpi3',
     storageBucket: 'tomate-sysembe-rpi3.appspot.com',
-    messagingSenderId: '968458408878'
+    messagingSenderId: '968458408878',
+    appId: '1:968458408878:web:83f0bbacd24ad0ee'
   }
 };
 

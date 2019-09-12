@@ -12,9 +12,21 @@
             </div>
         </div>
     </div>
-</div>
 
-<div id="graficos">
-    <h1>Clima de {{ ciudad }} - API </h1>
-    <canvas id="canvas" width="5" height="2">{{data}}</canvas>
+    <!--
+    <div id="graficos">
+        <h1>Clima de {{ ciudad }} - API </h1>
+        <canvas id="canvas" width="5" height="2">{{data}}</canvas>
+    </div>
+    -->
+
+    <div id="graficoTomatePie">
+        <h5> Pie</h5>
+        <canvas id="pie_th" width="5" height="2">{{dataTomate}}</canvas>
+    </div>
+
+    <div id="graficoTomate">
+        <h5> Grafica Humedad y Temperatura</h5>
+        <canvas id="temp_hum" width="5" height="2">{{dataTomate}}</canvas>
+    </div>
 </div>

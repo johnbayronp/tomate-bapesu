@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 /* Fire base DB Modulos*/
+import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireModule } from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -26,6 +27,7 @@ import { RegistroComponent } from './sesiones/registro/registro.component';
 import {GraficotestService} from './servicios/graficotest.service';
 import { AuthService } from './servicios/auth.service';
 import { AccesoService } from './servicios/acceso.service';
+import { DataTomateService } from './servicios/data-tomate.service';
 
 /*Rutas */
 const routes: Routes = [
@@ -50,7 +52,7 @@ const routes: Routes = [
   ],
 
   imports: [
-  BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
@@ -64,7 +66,9 @@ const routes: Routes = [
     GraficotestService,
     AuthService,
     AngularFireAuth,
-    AccesoService
+    AccesoService,
+    DataTomateService,
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })
