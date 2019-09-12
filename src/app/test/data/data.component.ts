@@ -24,6 +24,8 @@ export class DataComponent implements OnInit {
   emailUser: string;
   photoUser: string;
 
+
+
   constructor(private graficosService: GraficotestService,
               private authService: AuthService,
               private dataSensorApi: DataTomateService) { }
@@ -37,36 +39,64 @@ export class DataComponent implements OnInit {
 
     // GRAFICA DE TOMATE
     this.dataTomate = this.dataSensorApi.getAllsData().subscribe(sensor => {
-      console.log(sensor);
-      const humedad = sensor.map(res => res.humedad);
+      // console.log(sensor);
+      const humedades = sensor.map(res => res.humedad);
       const temperatura = sensor.map(res => res.temperatura);
       const fechas = sensor.map(res => {
         return res.fecha + ' ' + res.hora;
       });
 
-      const lastHumedad = humedad[humedad.length - 1];
-      const lastTemperatura = temperatura[temperatura.length - 1];
-      console.log(lastHumedad, lastTemperatura);
 
+      // pie promedio
+      let porcH;
+      porcH = 0;
+      const sumH = humedades.forEach(el => {
+        porcH = Number(el) + porcH; // 50 + 0
+      });
+      const ph = Number(porcH) / humedades.length ;
+      console.log(ph);
+
+      let promT;
+      promT = 0;
+      const sumT = temperatura.forEach(el => {
+        promT = Number(el) + promT; // 50 + 0
+      });
+      const pt = Number(promT) / temperatura.length  ;
+      console.log(pt);
+
+      const lastHumedad = ph;
+      const lastTemperatura = pt;
+      // const lastHumedad = humedades[humedades.length - 1]; //TOMA ULTIMO DATO DE HUMEDAD
+      // const lastTemperatura = temperatura[temperatura.length - 1]; // Toma el ultimo dato de temperatura
+      const lastDta = [];
+      lastDta.push(lastHumedad, lastTemperatura);
+
+      // pie chartjs
       this.dataTomate = new Chart('pie_th', {
         type: 'pie',
         data: {
           labels: [
-            'humedad'
+            'humedad',
+            'temperatura'
           ],
           datasets: [
             {
-              data: lastHumedad,
+              data: lastDta,
               backgroundColor: [
                 'red',
+                'blue'
               ],
               hoverBackgroundColor: [
-                'yellow'
+                'yellow',
+                'cyan'
               ]
             }
           ]
         },
         options: {
+          animation: {
+            animateRotate: true
+          }
         }
       });
 
@@ -91,7 +121,7 @@ export class DataComponent implements OnInit {
             },
             {
              label: 'Humedad',
-             data: humedad,
+             data: humedades,
              backgroundColor: [
                '#00ffff',
                '#00ffff',
