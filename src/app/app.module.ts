@@ -35,8 +35,7 @@ const routes: Routes = [
   {path: 'test', component: DataComponent,
     canActivate: [AccesoService]},
   {path: 'login', component: LoginComponent},
-  {path: 'registro', component: RegistroComponent},
-  {path: '**', component: InicioComponent}
+  {path: 'registro', component: RegistroComponent}
 ];
 
 

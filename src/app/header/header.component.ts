@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
 
 
   messageLogout: any = '¿Desea Cerrar sesion?';
+  status: boolean;
 
   constructor(private authService: AuthService,
               private afAuth: AngularFireAuth,
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.isUserAuth();
+    this.status = this.isUserAuth();
+    console.log(this.status);
   }
 
   /* Evaluamos si estamos logados o no para mostrar componentes */

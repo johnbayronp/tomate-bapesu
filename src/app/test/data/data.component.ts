@@ -6,7 +6,6 @@ import { AuthService } from '../../servicios/auth.service';
 import { LoginComponent } from '../../sesiones/login/login.component';
 import { DataTomateService } from '../../servicios/data-tomate.service';
 import { map, timestamp } from 'rxjs/operators';
-import { type } from 'os';
 
 @Component({
   selector: 'app-data',
@@ -24,7 +23,16 @@ export class DataComponent implements OnInit {
   emailUser: string;
   photoUser: string;
 
+  /** propiedades a utilizar en front */
+  promHumedad: any;
+  promTemperatura: any;
 
+  /* Datos de informacion */
+  tempMaxima: boolean;
+  tempMinima: boolean;
+
+  humMaxima: boolean;
+  humMinima: boolean;
 
   constructor(private graficosService: GraficotestService,
               private authService: AuthService,
@@ -56,6 +64,7 @@ export class DataComponent implements OnInit {
       const ph = Number(porcH) / humedades.length ;
       console.log(ph);
 
+      // promedio temperatura
       let promT;
       promT = 0;
       const sumT = temperatura.forEach(el => {
@@ -64,8 +73,16 @@ export class DataComponent implements OnInit {
       const pt = Number(promT) / temperatura.length  ;
       console.log(pt);
 
-      const lastHumedad = ph;
-      const lastTemperatura = pt;
+      const lastHumedad = ph.toFixed(2);
+      const lastTemperatura = pt.toFixed(2);
+
+      // observamos el estado de temperatura
+      this.statusTemperatura(lastTemperatura);
+
+      // Tomamos los datos para verlos en el html
+      this.promHumedad = lastHumedad;
+      this.promTemperatura = lastTemperatura;
+
       // const lastHumedad = humedades[humedades.length - 1]; //TOMA ULTIMO DATO DE HUMEDAD
       // const lastTemperatura = temperatura[temperatura.length - 1]; // Toma el ultimo dato de temperatura
       const lastDta = [];
@@ -76,24 +93,30 @@ export class DataComponent implements OnInit {
         type: 'pie',
         data: {
           labels: [
-            'humedad',
-            'temperatura'
+            'Humedad',
+            'Temperatura'
           ],
           datasets: [
             {
               data: lastDta,
               backgroundColor: [
-                'red',
-                'blue'
+                '#149c89',
+                '#dc220f'
               ],
               hoverBackgroundColor: [
-                'yellow',
-                'cyan'
+                '#13f9d9',
+                'red'
               ]
             }
           ]
         },
         options: {
+          legend: {
+            labels: {
+              fontColor: 'white',
+              fontSize: 14
+            }
+          },
           animation: {
             animateRotate: true
           }
@@ -110,11 +133,6 @@ export class DataComponent implements OnInit {
               label: 'Temperatura',
               data: temperatura,
               backgroundColor: [
-                'red',
-                'red',
-                'red',
-                'red',
-                'red',
                 'red'
               ],
               fill: false
@@ -123,11 +141,6 @@ export class DataComponent implements OnInit {
              label: 'Humedad',
              data: humedades,
              backgroundColor: [
-               '#00ffff',
-               '#00ffff',
-               '#00ffff',
-               '#00ffff',
-               '#00ffff',
                '#00ffff'
              ],
              fill: false
@@ -154,7 +167,35 @@ export class DataComponent implements OnInit {
         }
       });
     });
+  }
+
+  statusTemperatura(temp) {
+    if (temp >= 45) {
+      this.tempMinima = false;
+      this.tempMaxima = true;
+
+      this.humMinima = true;
+      this.humMaxima = false;
+    } else if (temp <= 6 ) {
+      this.tempMinima = true;
+      this.tempMaxima = false;
+
+      this.humMinima = false;
+      this.humMaxima = true;
+    } else {
+      this.tempMaxima = false;
+      this.tempMinima = false;
+
+      this.humMinima = false;
+      this.humMaxima = false;
+    }
+  }
+
+}
+
+
 /*
+va_en_el_on_init(){
     // GRAFICA API CLIMA DE MOSCOW
     this.data = this.graficosService.temperaturasAPI()
     .subscribe(res => {
@@ -226,7 +267,6 @@ export class DataComponent implements OnInit {
            }
          });
       });
-    });*/
-  }
-
+    });
 }
+*/
