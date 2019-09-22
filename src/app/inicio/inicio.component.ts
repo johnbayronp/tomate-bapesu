@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  title = 'Bapesu Tomate';
+  title = 'Tomate';
+  subtitle = 'Bapesu technology';
+
   constructor() { }
   ngOnInit() {
   }
