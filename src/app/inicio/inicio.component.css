@@ -17,13 +17,6 @@
 }
 
 
-.background-container{
-    background-color: black;
-}
-.background-container2{
-    background-color: yellow;
-}
-
 .header{
     height: 55vh;
     background-image: linear-gradient(
@@ -62,8 +55,9 @@
 
 
 .text-box{
+    padding-top: 10%;
     position: absolute;
-    top: 40%;
+    top: 50%;
     left:50%;
     transform: translate(-50%,-50%);
     text-align: center;
@@ -75,7 +69,6 @@
     text-transform: uppercase;
 
     backface-visibility: hidden;
-    margin-bottom: 60px;
 }
 
 /*  heading-primary commit
@@ -107,7 +100,6 @@
     font-size: 2vw;
     font-weight: 300;
     letter-spacing: 5px;
-    margin-top: 1vh;
 
     animation-name: moveInRight;
     animation-duration: 3s;
@@ -180,6 +172,8 @@ box-shadow: crea una sombra
     border-radius: 100px;
     transition: all .2s;
     position: relative;
+
+    margin-bottom: 8em;
 }
 .btn1:hover{
     transform: translateY(-3px);
