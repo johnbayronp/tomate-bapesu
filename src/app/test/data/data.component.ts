@@ -15,7 +15,7 @@ import { map, timestamp } from 'rxjs/operators';
 export class DataComponent implements OnInit {
 
 
-  /*declaramos la propiedad*/
+  /*Declaramos la propiedad*/
   data: any = [];
   dataTomate: any = [];
   ciudad: any;
@@ -23,7 +23,7 @@ export class DataComponent implements OnInit {
   emailUser: string;
   photoUser: string;
 
-  /** propiedades a utilizar en front */
+  /** propiedades a utilizar en frontend */
   promHumedad: any;
   promTemperatura: any;
 
@@ -38,7 +38,6 @@ export class DataComponent implements OnInit {
               private authService: AuthService,
               private dataSensorApi: DataTomateService) { }
 
-  // Creamos los atributos donde guardaremos los objetos y valores
 
   ngOnInit() {
     this.nameUser = this.authService.currentUserName();
@@ -47,6 +46,7 @@ export class DataComponent implements OnInit {
 
     // GRAFICA DE TOMATE
     this.dataTomate = this.dataSensorApi.getAllsData().subscribe(sensor => {
+
       // console.log(sensor);
       const humedades = sensor.map(res => res.humedad);
       const temperatura = sensor.map(res => res.temperatura);
@@ -55,40 +55,43 @@ export class DataComponent implements OnInit {
       });
 
 
-      // pie promedio
+      // ------------------------ Calcular promedio Humedad ------------------------
       let porcH;
       porcH = 0;
       const sumH = humedades.forEach(el => {
         porcH = Number(el) + porcH; // 50 + 0
       });
       const ph = Number(porcH) / humedades.length ;
-      console.log(ph);
+      // console.log(ph);
 
-      // promedio temperatura
+      // --------------------- Calcular promedio temperatura --------------------------
       let promT;
       promT = 0;
       const sumT = temperatura.forEach(el => {
         promT = Number(el) + promT; // 50 + 0
       });
       const pt = Number(promT) / temperatura.length  ;
-      console.log(pt);
+      // console.log(pt);
 
+
+      // ----------------- Resultado de promedio solo 2 decimas ---------------------------
       const lastHumedad = ph.toFixed(2);
       const lastTemperatura = pt.toFixed(2);
 
-      // observamos el estado de temperatura
+      // ------------- Verificamos el estado de la temperatura Alta o baja ----------------------
       this.statusTemperatura(lastTemperatura);
 
-      // Tomamos los datos para verlos en el html
+      // ---------- Tomamos los datos para verlos en el html -------------------
       this.promHumedad = lastHumedad;
       this.promTemperatura = lastTemperatura;
 
+
+      // ---------------- Insertamos en un array nuestro dos ultimos valores --------------------
       // const lastHumedad = humedades[humedades.length - 1]; //TOMA ULTIMO DATO DE HUMEDAD
-      // const lastTemperatura = temperatura[temperatura.length - 1]; // Toma el ultimo dato de temperatura
       const lastDta = [];
       lastDta.push(lastHumedad, lastTemperatura);
 
-      // pie chartjs
+      // ----------------------- GRAFICO PIE CHARTJS -------------------------------------------
       this.dataTomate = new Chart('pie_th', {
         type: 'pie',
         data: {
@@ -123,7 +126,7 @@ export class DataComponent implements OnInit {
         }
       });
 
-      // Chart LINE -
+      // -------------------------- CHART LINEAL -------------------------------------
       this.dataTomate = new Chart('temp_hum', {
         type: 'line',
         data: {
@@ -169,6 +172,7 @@ export class DataComponent implements OnInit {
     });
   }
 
+  // ---------------- METODOS POR FUERA DEL ngOnInit() ----------------------------
   statusTemperatura(temp) {
     if (temp >= 45) {
       this.tempMinima = false;

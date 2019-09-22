@@ -1,6 +1,7 @@
 <br>
 <div class="container ">
     <div class="row " >
+
         <div class="col-sm-4 text-center">
             <div class="card mb-4 -shadow-sm">
                 <div class="card-header">
@@ -29,8 +30,11 @@
                     *ngIf="tempMinima && tempMaxima 
                             && humMaxima && humMinima">Bad!</span>
                 </div>
+
                 <canvas id="pie_th" width="8" height="5">{{dataTomate}}</canvas>
+
                 <hr>
+
                 <!-- Status de nuestra planta -->
                 <div class="alerts">
                     <div class="alert alert-danger" role="alert" *ngIf="tempMaxima">
@@ -44,15 +48,15 @@
                     <div class="alert alert-info" role="alert" *ngIf="humMaxima">
                         Humedad esta muy alta, Cuidado! {{promHumedad}}%
                     </div>
-        
+
                     <div class="alert alert-info" role="alert" *ngIf="humMinima">
                         Humedad esta muy baja, Cuidado! {{promHumedad}}%
                     </div>
-        
+
                     <div class="alert alert-success" role="alert" *ngIf="!tempMaxima && !tempMinima">
                         Temperatura: {{promTemperatura}}%
                     </div>
-        
+
                     <div class="alert alert-info" role="alert" *ngIf="!humMinima && !humMaxima">
                         Humedad: {{promHumedad}}%
                     </div>
@@ -62,11 +66,14 @@
 
     </div>
 
-    <div class="col text-center">
-        <div class="card mb-4 -shadow-sm test">
-            <h5 > Grafica Humedad y Temperatura</h5>
-        <canvas id="temp_hum" width="5" height="2">{{dataTomate}}</canvas>
-    </div>
+    <div class="row">
 
+        <div class="col text-center">
+            <div class="card mb-4 -shadow-sm test">
+                <h5 > Grafica Humedad y Temperatura</h5>
+            <canvas id="temp_hum" width="5" height="2">{{dataTomate}}</canvas>
+        </div>
+
+    </div>
 
 </div>
